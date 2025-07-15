@@ -1,14 +1,14 @@
-# diff-so-fancy  [![Circle CI build](https://circleci.com/gh/so-fancy/diff-so-fancy.svg?style=shield)](https://circleci.com/gh/so-fancy/diff-so-fancy) [![TravisCI build](https://travis-ci.org/so-fancy/diff-so-fancy.svg?branch=master)](https://travis-ci.org/so-fancy/diff-so-fancy) [![AppVeyor build](https://ci.appveyor.com/api/projects/status/github/so-fancy/diff-so-fancy?branch=master&svg=true)](https://ci.appveyor.com/project/stevemao/diff-so-fancy/branch/master)
+# 🕶️ diff-so-fancy  [![Circle CI build](https://circleci.com/gh/so-fancy/diff-so-fancy.svg?style=shield)](https://circleci.com/gh/so-fancy/diff-so-fancy) [![TravisCI build](https://travis-ci.org/so-fancy/diff-so-fancy.svg?branch=master)](https://travis-ci.org/so-fancy/diff-so-fancy) [![AppVeyor build](https://ci.appveyor.com/api/projects/status/github/so-fancy/diff-so-fancy?branch=master&svg=true)](https://ci.appveyor.com/project/stevemao/diff-so-fancy/branch/master)
 
 `diff-so-fancy` strives to make your diffs **human** readable instead of machine readable. This helps improve code quality and helps you spot defects faster.
 
-## Screenshot
+## 🖼️ Screenshot
 
 Vanilla `git diff` vs `git` and `diff-so-fancy`
 
 ![diff-highlight vs diff-so-fancy](diff-so-fancy.png)
 
-## Install
+## 📦 Install
 
 Simply copy the `diff-so-fancy` script from the latest release into your `$PATH` and you're done. Alternately to test development features you can clone this repo and then put the `diff-so-fancy` script (symlink will work) into your `$PATH`. The `lib/` directory will need to be kept relative to the core script.
 
@@ -20,7 +20,7 @@ Issues relating to packaging ("installation does not work", "version is out of d
 
 **Note:** Windows users may need to install [MinGW](https://sourceforge.net/projects/mingw/files/) or the [Windows subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
-## Usage
+## ✨ Usage
 
 ### With git
 
@@ -69,7 +69,7 @@ diff -r -u folder_a folder_b | diff-so-fancy
 ```shell
 diff --recursive -u folder_a folder_b | diff-so-fancy
 ```
-## Options
+## ⚒️ Options
 
 ### markEmptyLines
 
@@ -111,7 +111,7 @@ By default, the separator for the file header spans the full width of the termin
 git config --global diff-so-fancy.rulerWidth 80
 ```
 
-## The diff-so-fancy team
+## 👨 The diff-so-fancy team
 
 | Person                | Role             |
 | --------------------- | ---------------- |
@@ -121,7 +121,7 @@ git config --global diff-so-fancy.rulerWidth 80
 | @AOS                  | Debian packager  |
 | @Stevemao/@Paul Irish | NPM release team |
 
-## Contributing
+## 🧬 Contributing
 
 Pull requests are quite welcome, and should target the [`next` branch](https://github.com/so-fancy/diff-so-fancy/tree/next). We are also looking for any feedback or ideas on how to make `diff-so-fancy` even *fancier*.
 
@@ -132,11 +132,11 @@ Pull requests are quite welcome, and should target the [`next` branch](https://g
 * [Hacking and Testing](hacking-and-testing.md)
 * [History](history.md)
 
-## Alternatives
+## 🔃 Alternatives
 
 * [Delta](https://github.com/dandavison/delta)
 * [Lazygit](https://github.com/jesseduffield/lazygit) with diff-so-fancy [integration](https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md#diff-so-fancy)
 
-## License
+## 🏛️ License
 
 MIT
