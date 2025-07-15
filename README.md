@@ -12,13 +12,9 @@ Vanilla `git diff` vs `git` and `diff-so-fancy`
 
 Simply copy the `diff-so-fancy` script from the latest release into your `$PATH` and you're done. Alternately to test development features you can clone this repo and then put the `diff-so-fancy` script (symlink will work) into your `$PATH`. The `lib/` directory will need to be kept relative to the core script.
 
-If you are using a ZSH framework like [zgenom](https://github.com/jandamm/zgenom) or [oh-my-zsh](https://ohmyz.sh), refer to [Zsh plugin support for diff-so-fancy](pro-tips.md) for detailed installation instructions.
-
 `diff-so-fancy` is also available from the [NPM registry](https://www.npmjs.com/package/diff-so-fancy), [brew](https://formulae.brew.sh/formula/diff-so-fancy), [Fedora](https://packages.fedoraproject.org/pkgs/diff-so-fancy/diff-so-fancy/), in the [Arch extra repo](https://archlinux.org/packages/extra/any/diff-so-fancy/), and as [ppa:aos for Debian/Ubuntu Linux](https://github.com/aos/dsf-debian).
 
 Issues relating to packaging ("installation does not work", "version is out of date", etc.) should be directed to those packages' repositories/issue trackers where applicable.
-
-**Note:** Windows users may need to install [MinGW](https://sourceforge.net/projects/mingw/files/) or the [Windows subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 ## ✨ Usage
 
@@ -31,28 +27,7 @@ git config --global core.pager "diff-so-fancy | less --tabs=4 -RF"
 git config --global interactive.diffFilter "diff-so-fancy --patch"
 ```
 
-### Improved colors for the highlighted bits
-
-The default Git colors are not optimal. The colors used for the screenshot above were:
-
-```shell
-git config --global color.ui true
-
-git config --global color.diff-highlight.oldNormal    "red bold"
-git config --global color.diff-highlight.oldHighlight "red bold 52"
-git config --global color.diff-highlight.newNormal    "green bold"
-git config --global color.diff-highlight.newHighlight "green bold 22"
-
-git config --global color.diff.meta       "11"
-git config --global color.diff.frag       "magenta bold"
-git config --global color.diff.func       "146 bold"
-git config --global color.diff.commit     "yellow bold"
-git config --global color.diff.old        "red bold"
-git config --global color.diff.new        "green bold"
-git config --global color.diff.whitespace "red reverse"
-```
-
-### With diff
+### Manually with diff
 
 Use `-u` with `diff` for unified output, and pipe the output to `diff-so-fancy`:
 
