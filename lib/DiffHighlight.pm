@@ -22,8 +22,6 @@ our @NEW_HIGHLIGHT = (
 	$OLD_HIGHLIGHT[2],
 );
 
-
-
 my $RESET = "\x1b[m";
 my $COLOR = qr/\x1b\[[0-9;]*m/;
 my $BORING = qr/$COLOR|\s/;
@@ -74,7 +72,7 @@ sub handle_line {
 	      (?:$COLOR?\|$COLOR?[ ])* # zero or more trailing "|"
 	                         [ ]*  # trailing whitespace for merges
 	    /x) {
-	        my $graph_prefix = $&;
+		my $graph_prefix = $&;
 
 		# We must flush before setting graph indent, since the
 		# new commit may be indented differently from what we
@@ -114,7 +112,7 @@ sub handle_line {
 	# Since we can receive arbitrary input, there's no optimal
 	# place to flush. Flushing on a blank line is a heuristic that
 	# happens to match git-log output.
-	if (!length) {
+	if (/^$/) {
 		$flush_cb->();
 	}
 }
@@ -141,11 +139,7 @@ sub highlight_stdin {
 # fallback, which means we will work even if git can't be run.
 sub color_config {
 	my ($key, $default) = @_;
-
-	# Removing the redirect speeds up execution by about 12ms
-	#my $s = `git config --get-color $key 2>$NULL`;
-	my $s = `git config --get-color $key`;
-
+	my $s = `git config --get-color $key 2>$NULL`;
 	return length($s) ? $s : $default;
 }
 
