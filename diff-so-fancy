@@ -12,6 +12,7 @@ use File::Spec;                                             # For catdir
 use File::Basename;                                         # For dirname
 use Cwd qw(abs_path);                                       # For realpath()
 use lib dirname(abs_path(File::Spec->catdir($0))) . "/lib"; # Add the local lib/ to @INC
+use Term::ReadKey;                                          # For GetTerminalSize()
 use DiffHighlight;
 
 my $remove_file_add_header     = 1;
@@ -1004,36 +1005,6 @@ sub starts_with_ansi {
 	}
 }
 
-sub get_terminal_width {
-	# Make width static so we only calculate it once
-	state $width;
-
-	if ($width) {
-		return $width;
-	}
-
-	# If there is a ruler width in the config we use that
-	if ($ruler_width) {
-		$width = $ruler_width;
-	# Otherwise we check the terminal width using tput
-	} else {
-		my $tput = `tput cols`;
-
-		if ($tput) {
-			$width = int($tput);
-
-			if (is_windows()) {
-				$width--;
-			}
-		} else {
-			print color('orange') . "Warning: `tput cols` did not return numeric input" . color('reset') . "\n";
-			$width = 80;
-		}
-	}
-
-	return $width;
-}
-
 sub show_debug_info {
 	my @less    = get_less_charset();
 	my $git_ver = trim(`git --version 2>&1`);
@@ -1065,6 +1036,25 @@ sub show_debug_info {
 
 	my @lines = split(/\n/, $out);
 	debug_log(@lines);
+}
+
+sub get_terminal_width {
+	# Make width static so we only calculate it once
+	state $width;
+
+	if ($width) {
+		return $width;
+	}
+
+	# If there is a ruler width in the config we use that
+	if ($ruler_width) {
+		$width = $ruler_width;
+	} else {
+		my @x  = Term::ReadKey::GetTerminalSize();
+		$width = $x[0] || 0;
+	}
+
+	return $width;
 }
 
 # Boolean to yes/no string
