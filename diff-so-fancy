@@ -1138,25 +1138,25 @@ sub calculate_context_lines {
 }
 
 # Borrowed from: https://www.perturb.org/display/1097_Perl_detect_if_a_module_is_installed_before_using_it.html
-sub AUTOLOAD {
-	our $AUTOLOAD; # keep 'use strict' happy
+# Creates methods k() and kd() to print, and print & die respectively
+BEGIN {
+	if (!defined(&trim)) {
+		*trim = sub {
+			my ($s) = (@_, $_); # Passed in var, or default to $_
+			if (length($s) == 0) { return ""; }
+			$s =~ s/^\s*//;
+			$s =~ s/\s*$//;
 
-	if ($AUTOLOAD eq 'main::k' || $AUTOLOAD eq 'main::kd') {
-		if (eval { require Data::Dump::Color }) {
-			*k = sub { Data::Dump::Color::dd(@_) };
-		} else {
-			require Data::Dumper;
-			*k = sub { print Data::Dumper::Dumper(@_) };
+			return $s;
 		}
+	}
 
-		sub kd {
-			k(@_);
-
-			printf("Died at %2\$s line #%3\$s\n",caller());
-			exit(15);
-		}
-
-		eval($AUTOLOAD . '(@_)');
+	if (eval { require Dump::Krumo }) {
+		Dump::Krumo->import(qw/:short/);
+	} else {
+		require Data::Dumper;
+		*k  = sub { print Data::Dumper::Dumper(\@_) };
+		*kd = sub { print Data::Dumper::Dumper(\@_); die; };
 	}
 }
 
