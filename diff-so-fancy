@@ -1266,7 +1266,6 @@ sub count_git_header_lines {
 	return $ret;
 }
 
-
 # Borrowed from: https://www.perturb.org/display/1097_Perl_detect_if_a_module_is_installed_before_using_it.html
 # Creates methods k() and kd() to print, and print & die respectively
 BEGIN {
@@ -1281,18 +1280,9 @@ BEGIN {
 		}
 	}
 
-	if (eval { require Data::Dump::Color }) {
-		*k = sub { Data::Dump::Color::dd(@_) };
-	} else {
-		require Data::Dumper;
-		*k  = sub { print Data::Dumper::Dumper(\@_) };
-	}
-
-	sub kd {
-		k(@_);
-
-		printf("Died at %2\$s line #%3\$s\n",caller());
-		exit(15);
+	if ($ENV{USER} eq "bakers") {
+		require Dump::Krumo;
+		Dump::Krumo->import(qw(k kd));
 	}
 }
 
