@@ -18,7 +18,7 @@ Issues relating to packaging ("installation does not work", "version is out of d
 
 ## ✨ Usage
 
-### With git
+### Git
 
 Configure git to use `diff-so-fancy` for all diff output:
 
@@ -27,7 +27,7 @@ git config --global core.pager "diff-so-fancy | less --tabs=4 -RF"
 git config --global interactive.diffFilter "diff-so-fancy --patch"
 ```
 
-### Manually with diff
+### Diff
 
 Use `-u` with `diff` for unified output, and pipe the output to `diff-so-fancy`:
 
@@ -35,20 +35,17 @@ Use `-u` with `diff` for unified output, and pipe the output to `diff-so-fancy`:
 diff -u file_a file_b | diff-so-fancy
 ```
 
-It also supports the recursive mode of diff with `-r` or `--recursive` as **first argument**
+We also support recursive mode with `-r` or `--recursive`
 
 ```shell
-diff -r -u folder_a folder_b | diff-so-fancy
+diff --recursive -u /path/folder_a /path/folder_b | diff-so-fancy
 ```
 
-```shell
-diff --recursive -u folder_a folder_b | diff-so-fancy
-```
 ## ⚒️ Options
 
 ### markEmptyLines
 
-Should the first block of an empty line be colored. (Default: true)
+Colorize the first block of an empty line. (Default: true)
 
 ```shell
 git config --bool --global diff-so-fancy.markEmptyLines false
@@ -56,7 +53,7 @@ git config --bool --global diff-so-fancy.markEmptyLines false
 
 ### changeHunkIndicators
 
-Simplify git header chunks to a more human readable format. (Default: true)
+Simplify Git header chunks to a human readable format. (Default: true)
 
 ```shell
 git config --bool --global diff-so-fancy.changeHunkIndicators false
@@ -64,7 +61,7 @@ git config --bool --global diff-so-fancy.changeHunkIndicators false
 
 ### stripLeadingSymbols
 
-Should the pesky `+` or `-` at line-start be removed. (Default: true)
+Should the `+` or `-` symbols at line-start be removed. (Default: true)
 
 ```shell
 git config --bool --global diff-so-fancy.stripLeadingSymbols false
@@ -72,7 +69,9 @@ git config --bool --global diff-so-fancy.stripLeadingSymbols false
 
 ### useUnicodeRuler
 
-By default, the separator for the file header uses Unicode line-drawing characters. If this is causing output errors on your terminal, set this to `false` to use ASCII characters instead. (Default: true)
+By default, the separator for the file header uses Unicode line-drawing characters.
+If this is causing output errors on your terminal, set this to `false` to use
+ASCII characters instead. (Default: true)
 
 ```shell
 git config --bool --global diff-so-fancy.useUnicodeRuler false
@@ -80,7 +79,8 @@ git config --bool --global diff-so-fancy.useUnicodeRuler false
 
 ### rulerWidth
 
-By default, the separator for the file header spans the full width of the terminal. Use this setting to set the width of the file header manually.
+By default, the separator for the file header spans the full width of the terminal.
+Use rulerWidth to set the width of the file header manually.
 
 ```shell
 git config --global diff-so-fancy.rulerWidth 80
@@ -98,11 +98,13 @@ git config --global diff-so-fancy.rulerWidth 80
 
 ## 🧬 Contributing
 
-Pull requests are quite welcome, and should target the [`next` branch](https://github.com/so-fancy/diff-so-fancy/tree/next). We are also looking for any feedback or ideas on how to make `diff-so-fancy` even *fancier*.
+Pull requests are quite welcome, and should target the
+[`next` branch](https://github.com/so-fancy/diff-so-fancy/tree/next). We are also
+looking for any feedback or ideas on how to make `diff-so-fancy` even *fancier*.
 
 ### Other documentation
 
-* [Pro-tips on advanced usage](pro-tips.md)
+* [Pro-tips for advanced users](pro-tips.md)
 * [Reporting Bugs](reporting-bugs.md)
 * [Hacking and Testing](hacking-and-testing.md)
 * [History](history.md)
