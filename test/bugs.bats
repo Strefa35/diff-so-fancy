@@ -79,13 +79,13 @@ teardown_file() {
   assert_line --index 5 --partial  "History"
 }
 
-@test "File copy detection" {
+@test "File copy detection (#349)" {
   output=$( load_fixture "file_copy" | $diff_so_fancy )
   run printf "%s" "$output"
   assert_output --regexp 'Copied first_file to copied_file'
 }
 
-@test "diff --recursive support" {
+@test "diff --recursive support (#394)" {
   output=$( load_fixture "diff_recursive" | $diff_so_fancy )
   run printf "%s" "$output"
   assert_output --regexp 'modified: foo/bar'
