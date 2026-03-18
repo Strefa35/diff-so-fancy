@@ -1288,4 +1288,73 @@ BEGIN {
 	}
 }
 
+################################################################################
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+diff-so-fancy makes your diffs human readable instead of machine readable. This
+helps improve code quality and helps you spot defects faster.
+
+=head1 USAGE
+
+=head2 Git
+
+Configure git to use C<diff-so-fancy> for all diff output:
+
+    git config --global core.pager "diff-so-fancy | less --tabs=4 -RF"
+    git config --global interactive.diffFilter "diff-so-fancy --patch"
+
+=head2 Diff
+
+Use C<-u> with diff for unified output, and pipe the output to C<diff-so-fancy>:
+
+    diff -u file_a file_b | diff-so-fancy
+
+We also support recursive mode with C<-r> or C<--recursive>
+
+    diff --recursive -u /path/folder_a /path/folder_b | diff-so-fancy
+
+=head1 OPTIONS
+
+B<markEmptyLines:> Colorize the first block of an empty line. (Default: true)
+
+    git config --bool --global diff-so-fancy.markEmptyLines false
+
+B<changeHunkIndicators:> Simplify Git header chunks to a human readable format. (Default: true)
+
+    git config --bool --global diff-so-fancy.changeHunkIndicators false
+
+B<stripLeadingSymbols:> Should the + or - symbols at line-start be removed. (Default: true)
+
+    git config --bool --global diff-so-fancy.stripLeadingSymbols false
+
+B<useUnicodeRuler:> By default, the separator for the file header uses Unicode line-drawing
+characters. If this is causing output errors on your terminal, set this to false to use ASCII
+characters instead. (Default: true)
+
+    git config --bool --global diff-so-fancy.useUnicodeRuler false
+
+B<rulerWidth:> By default, the separator for the file header spans the full width of the
+terminal. Use rulerWidth to set the width of the file header manually.
+
+    git config --global diff-so-fancy.rulerWidth 80
+
+=head1 HOMEPAGE
+
+- https://github.com/so-fancy/diff-so-fancy
+
+=head1 SEE ALSO
+
+=head2 Delta
+
+- https://github.com/dandavison/delta
+
+=head2 Lazygit with diff-so-fancy integration
+
+- https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md#diff-so-fancy
+
 # vim: tabstop=4 shiftwidth=4 noexpandtab autoindent softtabstop=4
