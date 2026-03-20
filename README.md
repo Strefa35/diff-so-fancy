@@ -86,6 +86,15 @@ Use rulerWidth to set the width of the file header manually.
 git config --global diff-so-fancy.rulerWidth 80
 ```
 
+### shortHeaders
+
+Simplify the header inforation to a *single* line for filename and line
+number. (Default false)
+
+```shell
+git config --global diff-so-fancy.shortHeaders true
+```
+
 ## 👨 The diff-so-fancy team
 
 | Person                | Role             |
