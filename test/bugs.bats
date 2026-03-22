@@ -94,7 +94,6 @@ teardown_file() {
 
 @test "Remove a \n at the end of a file (#474)" {
   output=$( load_fixture "remove_slashn_eof" | $diff_so_fancy )
-  echo $output
   run printf "%s" "$output"
   #assert_output --regexp 'one'
   assert_line --index 6 --regexp "three"
