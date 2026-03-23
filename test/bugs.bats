@@ -45,14 +45,14 @@ teardown_file() {
 }
 
 @test "recursive vanilla diff -r -bu as Mercurial (#436)" {
-	output=$( load_fixture "recursive_default_as_mercurial" | $diff_so_fancy )
+	output=$( load_fixture "recursive_default_as_mercurial" | $diff_so_fancy | $ansi_reveal )
 	run printf "%s" "$output"
 
-	assert_line --index 1 --partial "renamed:"
+	assert_line --index 1 --partial "modified:"
 	assert_line --index 3 --partial "@ language/app.py:1 @"
-	assert_line --index 19 --partial "renamed:"
+	assert_line --index 19 --partial "modified:"
 	assert_line --index 21 --partial "@ language/__init__.py:1 @"
-	assert_line --index 25 --partial "renamed:"
+	assert_line --index 25 --partial "modified:"
 	assert_line --index 27 --partial "@ language/README.md:1 @"
 }
 
