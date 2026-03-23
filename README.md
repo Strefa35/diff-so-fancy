@@ -111,10 +111,10 @@ looking for any feedback or ideas on how to make `diff-so-fancy` even *fancier*.
 
 ### Other documentation
 
-* [Pro-tips for advanced users](pro-tips.md)
-* [Reporting Bugs](reporting-bugs.md)
-* [Hacking and Testing](hacking-and-testing.md)
-* [History](history.md)
+* [Pro-tips for advanced users](docs/pro-tips.md)
+* [Reporting Bugs](docs/reporting-bugs.md)
+* [Hacking and Testing](docs/hacking-and-testing.md)
+* [History](docs/history.md)
 
 ## 🔃 Alternatives
 
