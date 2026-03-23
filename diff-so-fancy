@@ -159,9 +159,6 @@ sub do_dsf_stuff {
 	#print STDERR join("",@$input);
 	#print STDERR "END ---------------------------------------------------\n";
 
-	# We track if the last '^diff' line had recursive specified
-	my $recursive = 0;
-
 	while (my $line = shift(@$input)) {
 		######################################################
 		# Pre-process the line before we do any other markup #
@@ -221,7 +218,6 @@ sub do_dsf_stuff {
 				$meta_color   = get_config_color("meta");
 
 				$last_file_seen = basename($3 || "");
-				$recursive      = 1;
 			# Git looks like: diff --git a/diff-so-fancy b/diff-so-fancy
 			} elsif ($extra =~ m/--git/) {
 				# Note file may contains spaces
@@ -230,7 +226,6 @@ sub do_dsf_stuff {
 				$b_file ||= "";
 
 				$last_file_seen = $a_file;
-				$recursive      = 0;
 			}
 
 			$last_file_seen =~ s|^\w/||; # Remove a/ (and handle diff.mnemonicPrefix).
@@ -268,6 +263,12 @@ sub do_dsf_stuff {
 
 			if ($file_2 ne "/dev/null") {
 				$last_file_seen = $file_2;
+			}
+
+			# Check if the last 'diff' line specified recursive
+			my $recursive = 0;
+			if ($chunk_str =~ /^${ansi_color_regex}diff .*(--recursive|-r)\b/) {
+				$recursive = 1;
 			}
 
 			# In recursive mode we massage the file names so they're similar
