@@ -215,20 +215,17 @@ teardown_file() {
 }
 
 @test "Hunk formatting: @@ -1,6 +1,6 @@" {
-	# stderr forced into output
 	output=$( load_fixture "first-three-line" | $diff_so_fancy )
 	assert_output --partial '@ package.json:3 @'
 }
 
 @test "Hunk formatting: @@ -1 0,0 @@" {
-	# stderr forced into output
 	output=$( load_fixture "single-line-remove" | $diff_so_fancy )
 	run printf "%s" "$output"
 	assert_line --index 4 --regexp 'var delayedMessage = "It worked";'
 }
 
 @test "Three way merge" {
-	# stderr forced into output
 	output=$( load_fixture "complex-hunks" | $diff_so_fancy )
 	# Lines should not have + or - in at the start
 	refute_output --partial '-	my $foo = shift(); # Array passed in by reference'
@@ -250,7 +247,6 @@ teardown_file() {
 }
 
 @test "Short headers" {
-	# stderr forced into output
 	output=$( load_fixture "single-line-remove" | $diff_so_fancy --shortHeaders 1)
 	run printf "%s" "$output"
 	assert_line --index 1 --regexp 'deleted: .*@ 1'
