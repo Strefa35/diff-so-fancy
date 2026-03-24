@@ -41,6 +41,7 @@ my ($file_1,$file_2);
 my $args              = argv(); # Hashref of all the ARGV stuff
 my $last_file_seen    = "";
 my $last_file_mode    = "";
+my $ruler_shape       = 'ruler';
 my $i                 = 0;
 my $in_hunk           = 0;
 my $columns_to_remove = 0;
@@ -202,9 +203,9 @@ sub do_dsf_stuff {
 			}
 
 			if ($file_1 && $file_2) {
-				print horizontal_rule($meta_color);
-				print $meta_color . file_change_string($file_1,$file_2) . "\n";
-				print horizontal_rule($meta_color);
+				my $str = $meta_color . file_change_string($file_1,$file_2) . "\n";
+
+				draw_ruler($str, $ruler_shape, $meta_color);
 			}
 		#########################
 		# Look for the filename #
@@ -236,13 +237,17 @@ sub do_dsf_stuff {
 				# we are consuming one line, and the debt must be paid
 				print "\n";
 			}
+		############################################
+		# In `git show` the commit always in a box #
+		############################################
 		} elsif ($line =~ /^${ansi_color_regex}commit/) {
 			$meta_color    = $1;
 			$git_show_mode = 1;
 
-			print horizontal_rule($meta_color);
-			print "$line";
-			print horizontal_rule($meta_color);
+			# Rulers after this (file names) are in a box
+			$ruler_shape = 'box';
+
+			draw_ruler($line, "ruler", $meta_color);
 		########################################
 		# Find the first file: --- a/README.md #
 		########################################
@@ -294,26 +299,21 @@ sub do_dsf_stuff {
 				$file_2 =~ s/$common.+?\///;
 			}
 
-			# Print out the top horizontal line of the header
-			print $reset_color;
-			print horizontal_rule($meta_color);
-
 			# Mercurial coloring is slightly different so we need to hard reset colors
 			if ($is_mercurial) {
 				print $reset_color;
 			}
 
-			print $meta_color;
+			my $str = "";
 
 			if ($short_headers) {
 				my $start_line = extract_start_line($line, $input, $context_lines);
-				print file_change_string($file_1,$file_2) . " ${reset_color}${meta_color}\@ $start_line${reset_color}\n";
+				$str = file_change_string($file_1,$file_2) . " ${reset_color}${meta_color}\@ $start_line${reset_color}\n";
 			} else {
-				print file_change_string($file_1,$file_2) . "\n";
+				$str = file_change_string($file_1,$file_2) . "\n";
 			}
 
-			# Print out the bottom horizontal line of the header
-			print horizontal_rule($meta_color);
+			draw_ruler($str, $ruler_shape, $meta_color);
 		########################################
 		# Check for "@@ -3,41 +3,63 @@" syntax #
 		########################################
@@ -379,9 +379,9 @@ sub do_dsf_stuff {
 		################################
 		} elsif ($line =~ /^Binary files (\w\/)?(.+?) and (\w\/)?(.+?) differ/) {
 			my $change = file_change_string($2,$4);
-			print horizontal_rule($meta_color);
-			print "$meta_color$change (binary)\n";
-			print horizontal_rule($meta_color);
+			my $str    = "$meta_color$change (binary)\n";
+
+			draw_ruler($str, $ruler_shape, $meta_color);
 		#####################################################
 		# Check if we're changing the permissions of a file #
 		#####################################################
@@ -430,9 +430,9 @@ sub do_dsf_stuff {
 					$change = file_change_string($file1,$file2);
 				}
 
-				print horizontal_rule($meta_color);
-				print $meta_color . $change . "\n";
-				print horizontal_rule($meta_color);
+				my $str = $meta_color . $change . "\n";
+
+				draw_ruler($str, $ruler_shape, $meta_color);
 			}
 
 			$i += 3; # We've consumed three lines
@@ -669,28 +669,6 @@ sub trim {
 	$s =~ s/\s*$//u;
 
 	return $s;
-}
-
-# Print a line of em-dash or line-drawing chars the full width of the screen
-sub horizontal_rule {
-	my $color = $_[0] || "";
-	my $width = get_terminal_width();
-
-	# em-dash http://www.fileformat.info/info/unicode/char/2014/index.htm
-	#my $dash = "\x{2014}";
-	# BOX DRAWINGS LIGHT HORIZONTAL http://www.fileformat.info/info/unicode/char/2500/index.htm
-	my $dash;
-	if ($use_unicode_dash_for_ruler && should_print_unicode()) {
-		#$dash = Encode::encode('UTF-8', "\x{2500}");
-		$dash = "\xE2\x94\x80";
-	} else {
-		$dash = "-";
-	}
-
-	# Draw the line
-	my $ret = $color . ($dash x $width) . "$reset_color\n";
-
-	return $ret;
 }
 
 sub file_change_string {
