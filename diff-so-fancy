@@ -264,9 +264,7 @@ sub do_dsf_stuff {
 			# Find the second file on the next line: +++ b/README.md
 			my $next = shift(@$input) || "";
 			$next    =~ /^$ansi_color_regex\+\+\+ (\w\/)?(.+?)(\e|\t|$)/;
-			if ($1) {
-				print $1; # Print out whatever color we're using
-			}
+
 			if ($git_strip_prefix) {
 				my $file_dir = $4 || "";
 				$file_2 = $file_dir . $5;
@@ -299,13 +297,7 @@ sub do_dsf_stuff {
 				$file_2 =~ s/$common.+?\///;
 			}
 
-			# Mercurial coloring is slightly different so we need to hard reset colors
-			if ($is_mercurial) {
-				print $reset_color;
-			}
-
 			my $str = "";
-
 			if ($short_headers) {
 				my $start_line = extract_start_line($line, $input, $context_lines);
 				$str = file_change_string($file_1,$file_2) . " ${reset_color}${meta_color}\@ $start_line${reset_color}\n";
