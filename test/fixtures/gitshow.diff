@@ -1,0 +1,38 @@
+[1;33mcommit 943ef89c48b436f06fbfb48b172a6b8c7b34326e[m
+Author: Scott Baker <scott@perturb.org>
+Date:   Mon Mar 23 15:46:20 2026 -0700
+
+    Add documentation on the unit tests
+
+[93mdiff --git a/docs/unit-tests.md b/docs/unit-tests.md[m
+[93mnew file mode 120000[m
+[93mindex 0000000..c89d86f[m
+[93m--- /dev/null[m
+[93m+++ b/docs/unit-tests.md[m
+[1;35m@@ -0,0 +1 @@[m
+[1;32m+[m[1;32m../test/README.md[m
+\ No newline at end of file[m
+[93mdiff --git a/test/README.md b/test/README.md[m
+[93mnew file mode 100644[m
+[93mindex 0000000..4940780[m
+[93m--- /dev/null[m
+[93m+++ b/test/README.md[m
+[1;35m@@ -0,0 +1,18 @@[m
+[1;32m+[m[1;32m# 🧪 diff-so-fancy unit tests[m
+[1;32m+[m
+[1;32m+[m[1;32mThis directory contains various unit tests to ensure correct functionality of[m
+[1;32m+[m[1;32md-s-f. You will need the[m
+[1;32m+[m[1;32m[bats testing system](https://github.com/bats-core/bats-core) to run the unit[m
+[1;32m+[m[1;32mtests.[m
+[1;32m+[m
+[1;32m+[m[1;32m## 🏃 Running the tests[m
+[1;32m+[m
+[1;32m+[m[1;32m* Run the entire suite of tests: `bats test`[m
+[1;32m+[m[1;32m* Run only tests that match the filter "color": `bats test -f color`[m
+[1;32m+[m[1;32m* Run only the tests related to bugs: `bats test/bugs.bats`[m
+[1;32m+[m
+[1;32m+[m[1;32m## 🎨 Testing ANSI colors[m
+[1;32m+[m
+[1;32m+[m[1;32mDue to the nature of the coloring used with d-s-f we utilize the[m
+[1;32m+[m[1;32m`ansi-reveal.pl` script in testing. This will convert raw ANSI strings into[m
+[1;32m+[m[1;32mhuman readable text that is easier to parse and write tests against.[m

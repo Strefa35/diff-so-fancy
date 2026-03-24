@@ -104,3 +104,12 @@ teardown_file() {
 	run printf "%s" "$output"
 	assert_line --index 0 --regexp "one line"
 }
+
+@test "In 'git show' mode we highlight the commit (#398)" {
+	output=$( load_fixture "gitshow" | $diff_so_fancy | $ansi_reveal)
+	run printf "%s" "$output"
+
+	assert_line --index 1 --regexp "commit 943ef89c4"
+	assert_line --index 6 --regexp "^\[COLOR227\]─────────────────────────┐"
+	assert_line --index 8 --regexp "^\[COLOR227\]─────────────────────────┘"
+}
